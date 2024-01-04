@@ -36,4 +36,9 @@ public interface Cache<T> {
     T getAndRemove(@NotNull String key);
 
     T getAndPut(@NotNull String key, @NotNull T value);
+
+    boolean remove(String key, T oldValue);
+
+    void removeAll(Set<String> keys);
+
 }
