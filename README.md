@@ -2,6 +2,14 @@ SIEVE Cache
 ============
 
 SIEVE is simpler than LRU.
+              
+# Get started
+
+```
+   Cache<String> cache = new SieveCache<>();
+   cache.put("nick", "Jackie");
+   System.out.println(cache.get("nick"));
+```
 
 # References
 
