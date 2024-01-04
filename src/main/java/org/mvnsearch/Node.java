@@ -1,13 +1,13 @@
 package org.mvnsearch;
 
-public class Node {
+public class Node<T> {
     private String key;
-    private Object value;
+    private T value;
     private boolean visited = false;
-    private Node prev = null;
-    private Node next = null;
+    private Node<T> prev = null;
+    private Node<T> next = null;
 
-    public Node(String key, Object value) {
+    public Node(String key, T value) {
         this.key = key;
         this.value = value;
     }
@@ -20,11 +20,11 @@ public class Node {
         this.key = key;
     }
 
-    public Object getValue() {
+    public T getValue() {
         return value;
     }
 
-    public void setValue(Object value) {
+    public void setValue(T value) {
         this.value = value;
     }
 
@@ -36,19 +36,19 @@ public class Node {
         this.visited = visited;
     }
 
-    public Node getPrev() {
+    public Node<T> getPrev() {
         return prev;
     }
 
-    public void setPrev(Node prev) {
+    public void setPrev(Node<T> prev) {
         this.prev = prev;
     }
 
-    public Node getNext() {
+    public Node<T> getNext() {
         return next;
     }
 
-    public void setNext(Node next) {
+    public void setNext(Node<T> next) {
         this.next = next;
     }
 }

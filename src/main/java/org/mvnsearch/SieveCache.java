@@ -5,13 +5,13 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class SieveCache {
+public class SieveCache<T> {
     private int capacity = 1000;
-    private Node head = null;
-    private Node tail = null;
-    private Node hand = null;
+    private Node<T> head = null;
+    private Node<T> tail = null;
+    private Node<T> hand = null;
     private int size = 0;
-    private final Map<String, Node> store = new ConcurrentHashMap<>();
+    private final Map<String, Node<T>> store = new ConcurrentHashMap<>();
 
 
     public SieveCache() {
@@ -22,7 +22,7 @@ public class SieveCache {
         this.capacity = capacity;
     }
 
-    private void addToHead(Node node) {
+    private void addToHead(Node<T> node) {
         node.setNext(this.head);
         node.setPrev(null);
         if (this.head != null) {
@@ -34,7 +34,7 @@ public class SieveCache {
         }
     }
 
-    private void removeNode(Node node) {
+    private void removeNode(Node<T> node) {
         if (node.getPrev() != null) {
             node.getPrev().setNext(node.getNext());
         } else {
@@ -48,7 +48,7 @@ public class SieveCache {
     }
 
     private void evict() {
-        Node obj = this.hand != null ? this.hand : this.tail;
+        Node<T> obj = this.hand != null ? this.hand : this.tail;
         while (obj != null && obj.isVisited()) {
             obj.setVisited(false);
             obj = obj.getPrev() != null ? obj.getPrev() : this.tail;
@@ -62,8 +62,8 @@ public class SieveCache {
     }
 
     @Nullable
-    public Object get(String key) {
-        Node node = this.store.get(key);
+    public T get(String key) {
+        Node<T> node = this.store.get(key);
         if (node != null) {
             node.setVisited(true);
             return node.getValue();
@@ -71,12 +71,12 @@ public class SieveCache {
         return null;
     }
 
-    public void put(String key, Object value) {
+    public void put(String key, T value) {
         synchronized (this) {
             if (this.size >= this.capacity) {
                 this.evict();
             }
-            Node node = new Node(key, value);
+            Node<T> node = new Node<>(key, value);
             this.addToHead(node);
             this.store.put(key, node);
             this.size = this.size + 1;
@@ -85,7 +85,7 @@ public class SieveCache {
     }
 
     public void delete(String key) {
-        Node node = this.store.get(key);
+        Node<T> node = this.store.get(key);
         if (node != null) {
             this.store.remove(key);
             this.removeNode(node);
@@ -104,10 +104,10 @@ public class SieveCache {
     }
 
     public void showItems() {
-        Node current = this.head;
+        Node<T> current = this.head;
         while (current != null) {
-            Node next = current.getNext();
-            System.out.println(current.getValue() + "(visited:" + current.isVisited() + ")" + (next != null ? (", -> " + next.getValue()) : "\n"));
+            Node<T> next = current.getNext();
+            System.out.println(current.getValue() + "(visited:" + current.isVisited() + ")" + (next != null ? (" -> " + next.getValue()) : "\n"));
             current = next;
         }
     }
