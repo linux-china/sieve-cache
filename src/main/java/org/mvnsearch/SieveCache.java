@@ -2,8 +2,8 @@ package org.mvnsearch;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class SieveCache {
     private int capacity = 1000;
@@ -11,7 +11,7 @@ public class SieveCache {
     private Node tail = null;
     private Node hand = null;
     private int size = 0;
-    private final Map<String, Node> store = new HashMap<>();
+    private final Map<String, Node> store = new ConcurrentHashMap<>();
 
 
     public SieveCache() {
@@ -72,14 +72,16 @@ public class SieveCache {
     }
 
     public void put(String key, Object value) {
-        if (this.size >= this.capacity) {
-            this.evict();
+        synchronized (this) {
+            if (this.size >= this.capacity) {
+                this.evict();
+            }
+            Node node = new Node(key, value);
+            this.addToHead(node);
+            this.store.put(key, node);
+            this.size = this.size + 1;
+            node.setVisited(false);
         }
-        Node node = new Node(key, value);
-        this.addToHead(node);
-        this.store.put(key, node);
-        this.size = this.size + 1;
-        node.setVisited(false);
     }
 
     public void delete(String key) {
