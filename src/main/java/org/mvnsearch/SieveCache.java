@@ -80,15 +80,19 @@ public class SieveCache<T> implements Cache<T> {
     }
 
     public void put(@NotNull String key, @NotNull T value) {
-        synchronized (this) {
-            if (this.size >= this.capacity) {
-                this.evict();
+        if (this.store.containsKey(key)) {
+            this.store.get(key).setValue(value);
+        } else {
+            synchronized (this) {
+                if (this.size >= this.capacity) {
+                    this.evict();
+                }
+                Node<T> node = new Node<>(key, value);
+                this.addToHead(node);
+                this.store.put(key, node);
+                this.size = this.size + 1;
+                node.setVisited(false);
             }
-            Node<T> node = new Node<>(key, value);
-            this.addToHead(node);
-            this.store.put(key, node);
-            this.size = this.size + 1;
-            node.setVisited(false);
         }
     }
 
@@ -153,6 +157,25 @@ public class SieveCache<T> implements Cache<T> {
             }
         }
         return items;
+    }
+
+    @Override
+    public boolean remove(String key, T oldValue) {
+        if (this.store.containsKey(key)) {
+            final Node<T> node = this.store.get(key);
+            if (node.getValue().equals(oldValue)) {
+                delete(key);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void removeAll(Set<String> keys) {
+        for (String key : keys) {
+            delete(key);
+        }
     }
 
     public void showItems() {
