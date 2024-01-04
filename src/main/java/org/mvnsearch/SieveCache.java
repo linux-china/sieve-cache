@@ -93,11 +93,21 @@ public class SieveCache {
         }
     }
 
+    public void clear() {
+        synchronized (this) {
+            this.store.clear();
+            this.head = null;
+            this.tail = null;
+            this.hand = null;
+            this.size = 0;
+        }
+    }
+
     public void showItems() {
         Node current = this.head;
         while (current != null) {
             Node next = current.getNext();
-            System.out.println(current.getValue() + "(visited:" + current.isVisited() + "), -> " + (next != null ? next.getValue() : "\n"));
+            System.out.println(current.getValue() + "(visited:" + current.isVisited() + ")" + (next != null ? (", -> " + next.getValue()) : "\n"));
             current = next;
         }
     }
