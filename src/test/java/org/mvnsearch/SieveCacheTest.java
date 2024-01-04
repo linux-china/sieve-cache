@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.mvnsearch.SieveCache;
 
 public class SieveCacheTest {
-    private static SieveCache cache = new SieveCache();
+    private static final SieveCache<String> cache = new SieveCache<>();
 
     @Test
     public void testCache() {
@@ -28,7 +28,7 @@ public class SieveCacheTest {
 
     @Test
     public void testCapacity() {
-        SieveCache cache = new SieveCache(3);
+        SieveCache<String> cache = new SieveCache<>(3);
         cache.put("1", "First");
         cache.put("2", "Two");
         cache.put("3", "Three");
