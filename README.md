@@ -1,5 +1,5 @@
-SIEVE Cache
-============
+SIEVE Cache in Java
+===================
 
 SIEVE is simpler than LRU.
               
