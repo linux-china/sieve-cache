@@ -8,7 +8,7 @@
     <artifactId>sieve-cache</artifactId>
     <version>0.1.1-SNAPSHOT</version>
     <name>Sieve Cache Java</name>
-    <description>SIEVE is easy to implement and can be easily integrated into existing systems.</description>
+    <description>Sieve: an Eviction Algorithm Simpler than LRU for Web Caches.</description>
     <url>https://github.com/linux-china/sieve-cache</url>
 
     <properties>
