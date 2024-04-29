@@ -7,7 +7,7 @@ SIEVE is simpler than LRU with following features:
 * Efficiency: achieves state-of-the-art efficiency on skewed workloads.
 * Cache Primitive: facilitates the design of advanced eviction algorithms.
 
-[How it works](how-it-works.png)
+![How it works](how-it-works.png)
 
 # Get started
 
