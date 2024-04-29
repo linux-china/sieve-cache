@@ -10,6 +10,17 @@ SIEVE is simpler than LRU with following features:
 ![How it works](how-it-works.png)
 
 # Get started
+ 
+* Add dependency to `pom.xml`:
+
+```xml
+<dependency>
+    <groupId>org.mvnsearch</groupId>
+    <artifactId>sieve-cache</artifactId>
+    <version>0.1.0</version>
+</dependency>
+```
+* Create a cache instance and use it:
 
 ```
    Cache<String> cache = new SieveCache<>();
