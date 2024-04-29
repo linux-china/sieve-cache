@@ -6,7 +6,7 @@
 
     <groupId>org.mvnsearch</groupId>
     <artifactId>sieve-cache</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1-SNAPSHOT</version>
     <name>Sieve Cache Java</name>
     <description>SIEVE is easy to implement and can be easily integrated into existing systems.</description>
     <url>https://github.com/linux-china/sieve-cache</url>
